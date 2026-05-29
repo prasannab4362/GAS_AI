@@ -12,6 +12,7 @@ const JOBS = [
   { title: "Robotics Software Developer", type: "Full-Time (Hybrid)", department: "Robotics", location: "Tamil Nadu, India" },
   { title: "IoT Systems Architect", type: "Contract", department: "Industrial Automation", location: "Remote" },
   { title: "Full Stack Next.js Developer", type: "Full-Time (Remote)", department: "Web Development", location: "Global" },
+  { title: "Student Internship Program", type: "Internship (Remote/Hybrid)", department: "SparkInnov8", location: "Global", link: "https://docs.google.com/forms/d/e/1FAIpQLSe0q_g9lVSP3yYwcSws2NJukx80_xGePg56DuJzZ_8T2R-OMA/viewform?pli=1" },
 ];
 
 export default function CareersPage() {
@@ -40,7 +41,7 @@ export default function CareersPage() {
                     <span className="flex items-center"><MapPin className="w-4 h-4 mr-1 text-brand-cyan" /> {job.location}</span>
                   </div>
                 </div>
-                <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white/5 text-white hover:bg-neon-green hover:text-black transition-colors font-medium text-sm border border-white/10 group-hover:border-neon-green">
+                <Link href={job.link || "/contact"} target={job.link ? "_blank" : undefined} rel={job.link ? "noopener noreferrer" : undefined} className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white/5 text-white hover:bg-neon-green hover:text-black transition-colors font-medium text-sm border border-white/10 group-hover:border-neon-green">
                   Apply Now <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </div>

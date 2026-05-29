@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Send, Mail, MessageCircle, Calendar, MessageSquare, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { InlineWidget } from "react-calendly";
+
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", service: "", message: "" });
@@ -143,20 +143,20 @@ export default function ContactPage() {
               </h2>
             </div>
 
-            <div className="bg-[#111111] border border-white/5 rounded-3xl shadow-2xl overflow-hidden flex h-full min-h-[600px] relative">
-              {/* Calendly Inline Widget */}
-              <div className="absolute inset-0 w-full h-full">
-                <InlineWidget 
-                  url="https://calendly.com/acmesales" 
-                  styles={{ height: '100%', width: '100%', minHeight: '600px' }} 
-                  pageSettings={{
-                    backgroundColor: '111111',
-                    hideEventTypeDetails: false,
-                    hideLandingPageDetails: false,
-                    primaryColor: '00ff9d',
-                    textColor: 'ffffff'
-                  }}
-                />
+            <div className="bg-[#111111] border border-white/5 rounded-3xl shadow-2xl overflow-hidden flex h-full min-h-[600px] relative items-center justify-center p-8 text-center">
+              <div className="space-y-4 max-w-sm">
+                <div className="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <Calendar className="w-8 h-8 text-neon-green" />
+                </div>
+                <h3 className="text-xl font-bold text-white">Calendar Not Connected</h3>
+                <p className="text-gray-400 text-sm">
+                  Please provide your Calendly URL (e.g. calendly.com/your-name) so we can activate your inline scheduler.
+                </p>
+                <div className="pt-4">
+                  <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-neon-green text-black hover:bg-neon-green/90 transition-colors font-bold text-sm uppercase tracking-widest">
+                    Go to Calendly
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
