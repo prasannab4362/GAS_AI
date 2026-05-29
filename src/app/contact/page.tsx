@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Send, MapPin, Mail, MessageCircle, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
 export default function ContactPage() {
@@ -140,8 +140,8 @@ export default function ContactPage() {
                 <MapPin className="w-6 h-6 text-brand-cyan" />
               </div>
               <div>
-                <h3 className="text-white font-semibold mb-1">Our Base</h3>
-                <p className="text-gray-400 text-sm">Tamil Nadu (Neyveli, Kurinjipadi, Cuddalore) • Serving Globally</p>
+                <h3 className="text-white font-semibold mb-1">100% Remote & Global</h3>
+                <p className="text-gray-400 text-sm">Operating completely remotely, engineering automation systems worldwide.</p>
               </div>
             </div>
 
@@ -150,10 +150,9 @@ export default function ContactPage() {
               <Clock className="w-10 h-10 text-neon-green mb-4" />
               <h3 className="text-xl font-heading font-bold text-white mb-2">Schedule a Meeting</h3>
               <p className="text-gray-400 mb-6 text-sm">Book a direct technical consultation with our engineers.</p>
-              <Button className="bg-white/10 hover:bg-white/20 text-white">
+              <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", className: "bg-white/10 hover:bg-white/20 text-white border-0" })}>
                 Open Calendly Scheduler
-              </Button>
-              {/* Note: Actual Calendly embed script would go here */}
+              </a>
             </div>
           </motion.div>
           
@@ -163,9 +162,8 @@ export default function ContactPage() {
         <div className="h-96 w-full glass-panel rounded-3xl overflow-hidden relative">
           <div className="absolute inset-0 bg-brand-gray/50 flex flex-col items-center justify-center text-center p-6">
             <MapPin className="w-12 h-12 text-brand-cyan mb-4" />
-            <h3 className="text-2xl font-heading font-bold text-white mb-2">Global Operations</h3>
-            <p className="text-gray-400">Headquartered in Tamil Nadu, delivering automation systems worldwide.</p>
-            {/* Google Maps iframe can be inserted here */}
+            <h3 className="text-2xl font-heading font-bold text-white mb-2">Global & Remote Operations</h3>
+            <p className="text-gray-400">Our engineering teams operate entirely remotely, delivering automation systems worldwide without borders.</p>
           </div>
         </div>
         
