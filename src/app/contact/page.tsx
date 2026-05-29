@@ -176,7 +176,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-1">Direct Line</p>
-                  <p className="font-bold text-white text-lg">(+91) 9080151505</p>
+                  <p className="font-bold text-white text-lg">(+91) 9080785352</p>
                 </div>
               </div>
 
