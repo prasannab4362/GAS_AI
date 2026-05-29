@@ -55,7 +55,7 @@ export default function LabsPage() {
         
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-heading font-bold text-white mb-6">Ready to start your engineering journey?</h2>
-          <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "bg-brand-cyan text-black hover:bg-brand-cyan/90 w-full sm:w-auto")}>
+          <Link href="https://docs.google.com/forms/d/e/1FAIpQLSe0q_g9lVSP3yYwcSws2NJukx80_xGePg56DuJzZ_8T2R-OMA/viewform?pli=1" target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }), "bg-brand-cyan text-black hover:bg-brand-cyan/90 w-full sm:w-auto")}>
             Apply for Internship <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
         </div>
