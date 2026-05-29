@@ -85,6 +85,7 @@ export function FeaturedProjectsSection() {
                 <img 
                   src={solution.image} 
                   alt={solution.title}
+                  loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
