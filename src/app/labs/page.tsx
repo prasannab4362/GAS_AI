@@ -1,0 +1,65 @@
+import { Metadata } from "next";
+import { Terminal, Code, Cpu, Database, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "Virtual AI Labs & Internships | GAS",
+  description: "Join GAS Virtual AI Labs for 100% remote internships in AI, Machine Learning, Robotics, IoT, and Full Stack Development.",
+};
+
+const PROGRAMS = [
+  { title: "AI & Deep Learning", icon: Database },
+  { title: "Computer Vision", icon: Terminal },
+  { title: "NLP & LLM", icon: Code },
+  { title: "Agentic AI", icon: Cpu },
+  { title: "n8n AI Automation", icon: Terminal },
+  { title: "Full Stack Development", icon: Code },
+  { title: "IoT & Robotics", icon: Cpu },
+  { title: "Embedded Systems", icon: Database },
+];
+
+export default function LabsPage() {
+  return (
+    <div className="py-24 bg-black min-h-screen">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <div className="text-center max-w-4xl mx-auto mb-20">
+          <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
+            Build Real Technology with <br />
+            <span className="text-neon-green">Virtual AI Labs</span>
+          </h1>
+          <p className="text-xl text-gray-400 mb-8">
+            Our internship programs are 100% virtual and designed to give you hands-on experience building enterprise-grade systems alongside our engineering team.
+          </p>
+          <div className="flex justify-center gap-4 text-sm font-medium text-gray-300">
+            <span className="bg-white/10 px-4 py-2 rounded-full border border-white/5">100% Virtual</span>
+            <span className="bg-white/10 px-4 py-2 rounded-full border border-white/5">Live Projects</span>
+            <span className="bg-white/10 px-4 py-2 rounded-full border border-white/5">Corporate Certification</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+          {PROGRAMS.map((program) => {
+            const Icon = program.icon;
+            return (
+              <div key={program.title} className="glass-panel p-6 rounded-2xl text-center hover:border-brand-cyan/50 transition-colors">
+                <div className="w-12 h-12 mx-auto bg-brand-cyan/10 rounded-full flex items-center justify-center mb-4">
+                  <Icon className="w-6 h-6 text-brand-cyan" />
+                </div>
+                <h3 className="text-lg font-heading font-semibold text-white">{program.title}</h3>
+              </div>
+            );
+          })}
+        </div>
+        
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl font-heading font-bold text-white mb-6">Ready to start your engineering journey?</h2>
+          <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "bg-brand-cyan text-black hover:bg-brand-cyan/90 w-full sm:w-auto")}>
+            Apply for Internship <ArrowRight className="ml-2 w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
