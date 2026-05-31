@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Terminal, Code, Cpu, Database, ArrowRight } from "lucide-react";
+import { Terminal, Code, Cpu, Database, ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -55,9 +55,14 @@ export default function LabsPage() {
         
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-heading font-bold text-white mb-6">Ready to start your engineering journey?</h2>
-          <Link href="https://docs.google.com/forms/d/e/1FAIpQLSe0q_g9lVSP3yYwcSws2NJukx80_xGePg56DuJzZ_8T2R-OMA/viewform?pli=1" target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }), "bg-brand-cyan text-black hover:bg-brand-cyan/90 w-full sm:w-auto")}>
-            Apply for Internship <ArrowRight className="ml-2 w-4 h-4" />
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="https://gas-virutallab.vercel.app/" target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }), "bg-[#111111] text-neon-green border border-neon-green/30 hover:bg-neon-green/10 w-full sm:w-auto")}>
+              Visit Virtual Lab <ExternalLink className="ml-2 w-4 h-4" />
+            </Link>
+            <Link href="https://docs.google.com/forms/d/e/1FAIpQLSe0q_g9lVSP3yYwcSws2NJukx80_xGePg56DuJzZ_8T2R-OMA/viewform?pli=1" target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: "lg" }), "bg-brand-cyan text-black hover:bg-brand-cyan/90 w-full sm:w-auto")}>
+              Apply for Internship <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
