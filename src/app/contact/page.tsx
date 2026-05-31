@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", service: "", message: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [isHuman, setIsHuman] = useState(false);
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [bookingStep, setBookingStep] = useState<"calendar" | "details" | "confirmed">("calendar");
@@ -138,10 +139,18 @@ export default function ContactPage() {
                   </div>
                 </div>
                 
-                {/* Fake ReCaptcha block to match reference */}
+                {/* Interactive fake ReCaptcha block */}
                 <div className="flex justify-end">
                   <div className="bg-[#1a1a1a] border border-white/10 rounded-md p-3 flex items-center gap-4">
-                    <div className="w-6 h-6 bg-white rounded-sm border-2 border-gray-300"></div>
+                    <button 
+                      type="button"
+                      onClick={() => setIsHuman(!isHuman)}
+                      className={`w-6 h-6 rounded-sm border-2 flex items-center justify-center transition-all ${
+                        isHuman ? "bg-neon-green border-neon-green" : "bg-white border-gray-300"
+                      }`}
+                    >
+                      {isHuman && <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
+                    </button>
                     <span className="text-sm text-gray-300">I'm not a robot</span>
                     <div className="w-8 h-8 opacity-50 bg-gray-600 rounded-full flex items-center justify-center text-[8px] flex-col leading-none ml-4">
                       <span>re</span>
@@ -150,7 +159,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <Button type="submit" disabled={status === "loading"} className="w-full bg-gray-600/50 hover:bg-neon-green hover:text-black text-white py-6 text-sm tracking-widest font-bold uppercase transition-all duration-300">
+                <Button type="submit" disabled={status === "loading" || !isHuman} className="w-full bg-gray-600/50 hover:bg-neon-green hover:text-black text-white py-6 text-sm tracking-widest font-bold uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                   {status === "loading" ? "Sending..." : "Launch Inquiry"} <Send className="ml-2 w-4 h-4" />
                 </Button>
 

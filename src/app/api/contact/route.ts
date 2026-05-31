@@ -1,48 +1,53 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, company, message } = body;
+    const { name, email, service, message } = body;
 
     // Validate inputs
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
 
-    if (!accessKey) {
-      console.warn("Web3Forms access key is not configured in environment variables. Simulating success.");
-      return NextResponse.json({ success: true, message: "Simulated success (keys missing)" });
+    if (!gmailUser || !gmailAppPassword) {
+      console.warn("Gmail SMTP credentials are not configured. Cannot send email.");
+      return NextResponse.json({ error: "Server email configuration is missing." }, { status: 500 });
     }
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+    // Configure Nodemailer transporter using Gmail
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: gmailUser,
+        pass: gmailAppPassword,
       },
-      body: JSON.stringify({
-        access_key: accessKey,
-        name: name,
-        email: email,
-        phone: phone || "Not provided",
-        company: company || "Not provided",
-        message: message,
-        subject: `New Lead from ${name} - GAS AI Website`,
-        from_name: "GAS AI Automation Website",
-      }),
     });
 
-    const data = await response.json();
+    // Email to you (the site owner)
+    const mailOptions = {
+      from: `"GAS Website" <${gmailUser}>`,
+      to: gmailUser, // Sending to yourself
+      replyTo: email,
+      subject: `New Inquiry from ${name} - GAS AI`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Service Interest:</strong> ${service || "Not specified"}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      `,
+    };
 
-    if (data.success) {
-      return NextResponse.json({ success: true });
-    } else {
-      console.error("Web3Forms Error:", data);
-      return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
-    }
+    // Send the email
+    await transporter.sendMail(mailOptions);
+
+    return NextResponse.json({ success: true });
 
   } catch (error) {
     console.error("Contact API Error:", error);
