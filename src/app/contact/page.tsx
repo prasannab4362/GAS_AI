@@ -40,7 +40,21 @@ export default function ContactPage() {
     }
   };
 
-  const handleConfirmBooking = () => {
+  const handleConfirmBooking = async () => {
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name || "Anonymous Client",
+          email: formData.email || "no-email-provided@gas-ai.com",
+          service: "Strategy Session Booking",
+          message: `A new Strategy Session has been booked for ${monthNames[currentMonth]} ${selectedDate}, ${currentYear} at ${selectedTime}.`
+        }),
+      });
+    } catch (e) {
+      console.error(e);
+    }
     setBookingStep("confirmed");
   };
 
@@ -121,11 +135,11 @@ export default function ContactPage() {
                 <div className="space-y-2">
                   <label className="text-xs font-bold tracking-widest text-gray-400 uppercase">Service Interest</label>
                   <select name="service" value={formData.service} onChange={handleChange} className="w-full bg-[#1a1a1a] border border-white/5 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-neon-green/50 transition-colors appearance-none">
-                    <option value="" disabled>Select a service...</option>
-                    <option value="AI Automation">AI Automation</option>
-                    <option value="Robotics">Robotics</option>
-                    <option value="IoT Solutions">IoT Solutions</option>
-                    <option value="Custom App Dev">Custom App Development</option>
+                    <option value="" disabled className="bg-[#111111] text-gray-400">Select a service...</option>
+                    <option value="AI Automation" className="bg-[#111111] text-white">AI Automation</option>
+                    <option value="Robotics" className="bg-[#111111] text-white">Robotics</option>
+                    <option value="IoT Solutions" className="bg-[#111111] text-white">IoT Solutions</option>
+                    <option value="Custom App Dev" className="bg-[#111111] text-white">Custom App Development</option>
                   </select>
                 </div>
 
