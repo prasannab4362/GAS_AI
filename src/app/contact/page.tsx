@@ -338,28 +338,6 @@ export default function ContactPage() {
           {/* Bottom Left: Contact Info + FAQ */}
           <div className="space-y-12">
             
-            {/* Direct Line & Email Swarm */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="bg-[#111111] border border-white/5 p-6 rounded-3xl flex items-center gap-4 hover:border-neon-green/30 transition-colors">
-                <div className="w-12 h-12 rounded-xl bg-[#1a1a1a] flex items-center justify-center text-neon-green flex-shrink-0">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-1">Direct Line</p>
-                  <p className="font-bold text-white text-lg">(+91) 9080785352</p>
-                </div>
-              </div>
-
-              <div className="bg-[#111111] border border-white/5 p-6 rounded-3xl flex items-center gap-4 hover:border-neon-green/30 transition-colors">
-                <div className="w-12 h-12 rounded-xl bg-[#1a1a1a] flex items-center justify-center text-neon-green flex-shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold tracking-widest text-gray-500 uppercase mb-1">Email Swarm</p>
-                  <p className="font-bold text-white text-sm break-all">sparkinnov8kjpd@gmail.com</p>
-                </div>
-              </div>
-            </div>
 
             {/* FAQs */}
             <div>
