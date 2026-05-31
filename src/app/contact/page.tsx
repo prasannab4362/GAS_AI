@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send, Mail, MessageCircle, Calendar, MessageSquare, Phone } from "lucide-react";
+import { Send, Mail, MessageCircle, Calendar, MessageSquare, Phone, ChevronLeft, ChevronRight, Clock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
@@ -9,6 +9,39 @@ import { motion } from "framer-motion";
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", service: "", message: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [bookingStep, setBookingStep] = useState<"calendar" | "details" | "confirmed">("calendar");
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const timeSlots = ["09:00 AM", "10:30 AM", "01:00 PM", "02:30 PM", "04:00 PM", "05:30 PM"];
+
+  const handleNextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+  };
+
+  const handlePrevMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+  };
+
+  const handleConfirmBooking = () => {
+    setBookingStep("confirmed");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,21 +176,135 @@ export default function ContactPage() {
               </h2>
             </div>
 
-            <div className="bg-[#111111] border border-white/5 rounded-3xl shadow-2xl overflow-hidden flex h-full min-h-[600px] relative items-center justify-center p-8 text-center">
-              <div className="space-y-4 max-w-sm">
-                <div className="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <Calendar className="w-8 h-8 text-neon-green" />
+            <div className="bg-[#111111] border border-white/5 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-full min-h-[600px] relative p-8">
+              
+              {bookingStep === "calendar" && (
+                <div className="flex-1 flex flex-col h-full animate-in fade-in duration-500">
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-xl font-bold text-white">{monthNames[currentMonth]} {currentYear}</h3>
+                    <div className="flex gap-2">
+                      <button type="button" onClick={handlePrevMonth} className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white">
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      <button type="button" onClick={handleNextMonth} className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white">
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-7 gap-2 mb-4 text-center">
+                    {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map(day => (
+                      <div key={day} className="text-xs font-bold text-gray-500 uppercase tracking-wider">{day}</div>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-7 gap-2 flex-1">
+                    {Array.from({ length: firstDayOfMonth }).map((_, i) => (
+                      <div key={`empty-${i}`} className="p-2"></div>
+                    ))}
+                    {Array.from({ length: daysInMonth }).map((_, i) => {
+                      const day = i + 1;
+                      const isSelected = selectedDate === day;
+                      return (
+                        <button
+                          type="button"
+                          key={day}
+                          onClick={() => setSelectedDate(day)}
+                          className={`p-2 rounded-xl text-sm font-medium transition-all ${
+                            isSelected 
+                              ? "bg-neon-green text-black scale-110 shadow-[0_0_15px_rgba(0,255,157,0.4)]" 
+                              : "text-white hover:bg-white/10 bg-white/5"
+                          }`}
+                        >
+                          {day}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className="mt-8">
+                    <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                      <Clock className="w-4 h-4" /> Available Times
+                    </h4>
+                    <div className="grid grid-cols-3 gap-3">
+                      {timeSlots.map(time => (
+                        <button
+                          type="button"
+                          key={time}
+                          onClick={() => setSelectedTime(time)}
+                          className={`py-3 rounded-xl text-xs font-bold transition-all ${
+                            selectedTime === time
+                              ? "bg-neon-green text-black shadow-[0_0_15px_rgba(0,255,157,0.3)]"
+                              : "bg-[#1a1a1a] text-white hover:bg-[#222] border border-white/5"
+                          }`}
+                        >
+                          {time}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-white/5">
+                    <Button 
+                      type="button" 
+                      onClick={() => setBookingStep("details")}
+                      disabled={!selectedDate || !selectedTime}
+                      className="w-full bg-neon-green text-black hover:bg-neon-green/90 py-6 text-sm tracking-widest font-bold uppercase transition-all"
+                    >
+                      Continue
+                    </Button>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-white">Calendar Not Connected</h3>
-                <p className="text-gray-400 text-sm">
-                  Please provide your Calendly URL (e.g. calendly.com/your-name) so we can activate your inline scheduler.
-                </p>
-                <div className="pt-4">
-                  <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-neon-green text-black hover:bg-neon-green/90 transition-colors font-bold text-sm uppercase tracking-widest">
-                    Go to Calendly
-                  </a>
+              )}
+
+              {bookingStep === "details" && (
+                <div className="flex-1 flex flex-col justify-center animate-in fade-in slide-in-from-right-4 duration-500">
+                  <button type="button" onClick={() => setBookingStep("calendar")} className="flex items-center text-sm text-gray-400 hover:text-neon-green transition-colors mb-8">
+                    <ChevronLeft className="w-4 h-4 mr-1" /> Back to Calendar
+                  </button>
+                  <h3 className="text-2xl font-bold text-white mb-2">Confirm your Session</h3>
+                  <p className="text-neon-green font-medium mb-8 flex items-center gap-2">
+                    <Calendar className="w-4 h-4" /> {monthNames[currentMonth]} {selectedDate}, {currentYear} at {selectedTime}
+                  </p>
+                  
+                  <div className="space-y-4 mb-8">
+                    <div className="p-4 bg-[#1a1a1a] border border-white/5 rounded-xl text-sm text-gray-300">
+                      You are about to book a 30-minute discovery call with our engineering team. We'll send a Google Meet link to the email provided in the contact form.
+                    </div>
+                  </div>
+
+                  <Button 
+                    type="button"
+                    onClick={handleConfirmBooking}
+                    className="w-full bg-neon-green text-black hover:bg-neon-green/90 py-6 text-sm tracking-widest font-bold uppercase transition-all"
+                  >
+                    Confirm Booking
+                  </Button>
                 </div>
-              </div>
+              )}
+
+              {bookingStep === "confirmed" && (
+                <div className="flex-1 flex flex-col items-center justify-center text-center animate-in zoom-in-95 duration-500">
+                  <div className="w-20 h-20 bg-neon-green/10 rounded-full flex items-center justify-center mb-6">
+                    <CheckCircle2 className="w-10 h-10 text-neon-green" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Session Booked!</h3>
+                  <p className="text-gray-400 mb-6">
+                    A calendar invitation has been sent to your email for {monthNames[currentMonth]} {selectedDate} at {selectedTime}.
+                  </p>
+                  <Button 
+                    type="button"
+                    onClick={() => {
+                      setBookingStep("calendar");
+                      setSelectedDate(null);
+                      setSelectedTime(null);
+                    }}
+                    className="bg-transparent border border-white/20 text-white hover:bg-white/5 py-4 px-8 text-xs tracking-widest font-bold uppercase"
+                  >
+                    Book Another
+                  </Button>
+                </div>
+              )}
             </div>
           </motion.div>
         </div>
