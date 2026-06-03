@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Line } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
 export const TECHNOLOGIES_DATA = [
@@ -149,20 +149,32 @@ function OrbitalNode({
     }
 
     if (lineRef.current) {
-      lineRef.current.setPoints([[0, 0, 0], [x, y, z]]);
+      const positions = lineRef.current.geometry.attributes.position.array as Float32Array;
+      positions[0] = 0;
+      positions[1] = 0;
+      positions[2] = 0;
+      positions[3] = x;
+      positions[4] = y;
+      positions[5] = z;
+      lineRef.current.geometry.attributes.position.needsUpdate = true;
     }
   });
 
   return (
     <group>
-      <Line
-        ref={lineRef}
-        points={[[0, 0, 0], [0, 0, 0]]}
-        color={node.color}
-        lineWidth={isHovered || isActive ? 2.5 : 0.5}
-        transparent
-        opacity={isHovered || isActive ? 0.8 : 0.15}
-      />
+      <line ref={lineRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[new Float32Array([0, 0, 0, 0, 0, 0]), 3]}
+          />
+        </bufferGeometry>
+        <lineBasicMaterial
+          color={node.color}
+          transparent
+          opacity={isHovered || isActive ? 0.8 : 0.15}
+        />
+      </line>
       <mesh
         ref={meshRef}
         onPointerOver={(e) => {
