@@ -3,10 +3,44 @@ import { Terminal, Code, Cpu, Database, ArrowRight, ExternalLink } from "lucide-
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { PageHero3D } from "@/components/three/PageHero3D";
 
 export const metadata: Metadata = {
-  title: "Virtual AI Labs & Internships | GAS",
-  description: "Join GAS Virtual AI Labs for 100% remote internships in AI, Machine Learning, Robotics, IoT, and Full Stack Development.",
+  title: "GAS Virtual AI Labs - Remote AI & ML Internship Program",
+  description:
+    "Join GAS Virtual AI Labs — 100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics. Live projects, corporate certification, global access.",
+  keywords: [
+    "GAS virtual lab",
+    "virtual AI labs",
+    "AI internship program India",
+    "remote AI internship",
+    "virtual AI training",
+    "machine learning internship remote",
+    "deep learning internship",
+    "computer vision internship",
+    "NLP internship program",
+    "IoT robotics internship",
+    "AI lab online",
+    "GAS AI internship",
+    "virtual lab for students",
+    "AI certification program",
+    "agentic AI training",
+  ],
+  alternates: {
+    canonical: "https://gasautomation.ai/labs",
+  },
+  openGraph: {
+    title: "GAS Virtual AI Labs - Remote AI & ML Internship Program",
+    description:
+      "100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics. Build real tech with GAS AI Virtual Labs.",
+    url: "https://gasautomation.ai/labs",
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS Virtual AI Labs - Internship Program" }],
+  },
+  twitter: {
+    title: "GAS Virtual AI Labs - Remote AI & ML Internship Program",
+    description:
+      "100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics. Build real tech with GAS AI.",
+  },
 };
 
 const PROGRAMS = [
@@ -22,8 +56,9 @@ const PROGRAMS = [
 
 export default function LabsPage() {
   return (
-    <div className="py-24 bg-black min-h-screen">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+    <div className="py-24 bg-black min-h-screen relative overflow-hidden">
+      <PageHero3D shape="torusKnot" color="#64FFDA" />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-20">
           <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
             Build Real Technology with <br />

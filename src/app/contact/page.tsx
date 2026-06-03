@@ -4,7 +4,9 @@ import { useState } from "react";
 import { Send, Mail, MessageCircle, Calendar, MessageSquare, Phone, ChevronLeft, ChevronRight, Clock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 
+const PageHero3D = dynamic(() => import("@/components/three/PageHero3D").then((m) => m.PageHero3D), { ssr: false });
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", service: "", message: "" });
@@ -48,34 +50,36 @@ export default function ContactPage() {
         body: JSON.stringify({
           name: formData.name || "Anonymous Client",
           email: formData.email || "no-email-provided@gas-ai.com",
-          service: "Strategy Session Booking",
-          message: `A new Strategy Session has been booked for ${monthNames[currentMonth]} ${selectedDate}, ${currentYear} at ${selectedTime}.`
-        }),
+          service: formData.service || "Booking Session",
+          message: `Scheduled Strategy Session for ${monthNames[currentMonth]} ${selectedDate}, ${currentYear} at ${selectedTime}`,
+          type: "session"
+        })
       });
+      setBookingStep("confirmed");
     } catch (e) {
-      console.error(e);
+      console.error("Booking Error:", e);
     }
-    setBookingStep("confirmed");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isHuman) return;
     setStatus("loading");
-    
     try {
-      const response = await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, type: "contact" }),
       });
-
-      if (response.ok) {
+      if (res.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", service: "", message: "" });
+        setIsHuman(false);
       } else {
         setStatus("error");
       }
-    } catch (error) {
+    } catch (err) {
+      console.error(err);
       setStatus("error");
     }
   };
@@ -85,8 +89,9 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="py-24 bg-[#0a0a0a] min-h-screen text-white font-sans selection:bg-neon-green/30 selection:text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-10">
+    <div className="py-24 bg-[#0a0a0a] min-h-screen text-white font-sans selection:bg-neon-green/30 selection:text-white relative overflow-hidden">
+      <PageHero3D shape="torus" color="#00FF88" />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-10 relative z-10">
         
         {/* Top Row: Form & Calendly */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">

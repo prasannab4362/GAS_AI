@@ -3,11 +3,43 @@ import { Cpu, Wifi, Smartphone, Network, Rocket, Lightbulb, BookOpen } from "luc
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 export const metadata: Metadata = {
-  title: "SparkInnov8 Program | Robotics & AI Lab for Schools",
-  description: "The SparkInnov8 program by GAS brings Arduino, IoT, Robotics, Mobile App Development, and Networking labs directly to school students.",
+  title: "SparkInnov8 - Robotics & AI Labs for Schools",
+  description:
+    "SparkInnov8 by GAS AI brings Arduino, IoT, robotics & AI labs to schools. Complete lab setup, curriculum & training for the next generation of student innovators.",
+  keywords: [
+    "sparkinnov8 lab",
+    "sparkinnov8 program",
+    "school robotics lab India",
+    "robotics education for schools",
+    "AI labs for students",
+    "Arduino lab for schools",
+    "IoT lab setup schools",
+    "STEM education India",
+    "robotics curriculum schools",
+    "school AI program",
+    "student robotics lab",
+    "SparkInnov8 GAS",
+    "school technology lab",
+    "robotics training for students",
+    "embedded systems education",
+  ],
+  alternates: {
+    canonical: "https://gasautomation.ai/sparkinnov8",
+  },
+  openGraph: {
+    title: "SparkInnov8 - Robotics & AI Labs for Schools | GAS AI",
+    description:
+      "Complete Arduino, IoT, robotics & AI lab setup for schools. Curriculum, training & certification for the next generation of innovators.",
+    url: "https://gasautomation.ai/sparkinnov8",
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "SparkInnov8 - Robotics & AI Labs for Schools" }],
+  },
+  twitter: {
+    title: "SparkInnov8 - Robotics & AI Labs for Schools | GAS AI",
+    description:
+      "Arduino, IoT, robotics & AI lab setup for schools. Empowering the next generation of student innovators.",
+  },
 };
 
 const PROGRAMS = [
@@ -43,9 +75,12 @@ const PROGRAMS = [
   }
 ];
 
+import { PageHero3D } from "@/components/three/PageHero3D";
+
 export default function SparkInnov8Page() {
   return (
     <div className="py-24 bg-brand-black min-h-screen relative overflow-hidden">
+      <PageHero3D shape="icosahedron" color="#00FF88" />
       {/* Background Effect */}
       <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-brand-cyan/10 to-transparent pointer-events-none" />
       

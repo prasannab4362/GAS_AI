@@ -5,6 +5,7 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { TiltCard } from "@/components/three/TiltCard";
 
 const SOLUTIONS = [
   {
@@ -71,41 +72,43 @@ export function FeaturedProjectsSection() {
           {SOLUTIONS.map((solution, i) => (
             <motion.div
               key={solution.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.15, duration: 0.5 }}
-              className="group relative rounded-2xl overflow-hidden glass-panel"
+              transition={{ delay: i * 0.15, duration: 0.6 }}
             >
-              {/* Image Container */}
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors z-10" />
-                {/* Fallback pattern if image fails to load, though unsplash links are robust */}
-                <div className="absolute inset-0 bg-brand-black" /> 
-                <img 
-                  src={solution.image} 
-                  alt={solution.title}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              
-              {/* Content */}
-              <div className="p-6 relative z-20 bg-brand-gray/90 backdrop-blur-sm border-t border-white/5">
-                <div className="text-xs font-semibold text-neon-green uppercase tracking-wider mb-2">
-                  {solution.category}
+              <TiltCard glowColor="rgba(0,255,136,0.1)">
+                <div className="group relative rounded-2xl overflow-hidden glass-panel h-full">
+                  {/* Image Container */}
+                  <div className="relative h-64 overflow-hidden">
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10" />
+                    <div className="absolute inset-0 bg-brand-black" /> 
+                    <img 
+                      src={solution.image} 
+                      alt={solution.title}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-6 relative z-20 bg-brand-gray/90 backdrop-blur-sm border-t border-white/5">
+                    <div className="text-xs font-semibold text-neon-green uppercase tracking-wider mb-2">
+                      {solution.category}
+                    </div>
+                    <h4 className="text-xl font-heading font-bold text-white mb-3">
+                      {solution.title}
+                    </h4>
+                    <p className="text-gray-400 text-sm mb-6 line-clamp-3">
+                      {solution.description}
+                    </p>
+                    
+                    <Link href={solution.href} className="inline-flex items-center text-sm font-medium text-brand-cyan hover:text-neon-green transition-colors">
+                      Explore Solution <ExternalLink className="ml-2 w-4 h-4" />
+                    </Link>
+                  </div>
                 </div>
-                <h4 className="text-xl font-heading font-bold text-white mb-3">
-                  {solution.title}
-                </h4>
-                <p className="text-gray-400 text-sm mb-6 line-clamp-3">
-                  {solution.description}
-                </p>
-                
-                <Link href={solution.href} className="inline-flex items-center text-sm font-medium text-brand-cyan hover:text-neon-green transition-colors">
-                  Explore Solution <ExternalLink className="ml-2 w-4 h-4" />
-                </Link>
-              </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

@@ -5,8 +5,36 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Product Development Features | GAS",
-  description: "Enterprise-grade product development, custom AI hardware, robotics systems, and IoT modules by Green Automation Solution.",
+  title: "Product Development & Custom IoT Hardware",
+  description:
+    "Custom PCB design, embedded systems, edge AI hardware, and IoT device engineering by GAS AI. From concept to mass production for smart electronics.",
+  keywords: [
+    "IoT product development",
+    "custom PCB design India",
+    "embedded systems company",
+    "edge AI hardware",
+    "IoT device engineering",
+    "smart electronics development",
+    "firmware development services",
+    "custom hardware design",
+    "robotics hardware",
+    "GAS AI product development",
+  ],
+  alternates: {
+    canonical: "https://gasautomation.ai/products",
+  },
+  openGraph: {
+    title: "Product Development & Custom IoT Hardware | GAS AI",
+    description:
+      "Custom PCB design, embedded systems, edge AI hardware, and IoT device engineering. From concept to mass production.",
+    url: "https://gasautomation.ai/products",
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS AI Product Development" }],
+  },
+  twitter: {
+    title: "Product Development & Custom IoT Hardware | GAS AI",
+    description:
+      "Custom PCB design, embedded systems, edge AI hardware, and IoT device engineering. From concept to mass production.",
+  },
 };
 
 const FEATURES = [
@@ -60,10 +88,13 @@ const FEATURES = [
   }
 ];
 
+import { PageHero3D } from "@/components/three/PageHero3D";
+
 export default function ProductsPage() {
   return (
-    <div className="py-24 bg-black min-h-screen">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+    <div className="py-24 bg-black min-h-screen relative overflow-hidden">
+      <PageHero3D shape="dodecahedron" color="#64FFDA" />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 relative z-10">
         <div className="max-w-3xl mb-16">
           <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
             Product Development <span className="text-brand-cyan">Features</span>
