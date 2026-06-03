@@ -46,7 +46,19 @@ function WavePlane() {
   );
 }
 
+import { useState, useEffect } from "react";
+
 export function GridWave() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="absolute inset-0 z-0 overflow-hidden" />;
+  }
+
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
       <Canvas
