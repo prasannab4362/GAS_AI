@@ -1,140 +1,148 @@
 import { Metadata } from "next";
-import { Cpu, Wifi, Video, Zap, Layers, Server, Code, ShieldCheck } from "lucide-react";
-import { buttonVariants, Button } from "@/components/ui/button";
+import { Cpu, Wifi, Video, GraduationCap, ArrowRight } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { TiltCard } from "@/components/three/TiltCard";
+import { PageHero3D } from "@/components/three/PageHero3D";
 
 export const metadata: Metadata = {
-  title: "Product Development & Custom IoT Hardware",
+  title: "Core Products | AI, IoT & Robotics Hardware | GAS AI",
   description:
-    "Custom PCB design, embedded systems, edge AI hardware, and IoT device engineering by GAS AI. From concept to mass production for smart electronics.",
+    "Explore GAS AI core products: Smart IoT Gateways, High-Torque Robotics Actuators, Edge AI Vision Modules, and the Virtual Labs Engineering Sandbox.",
   keywords: [
-    "IoT product development",
-    "custom PCB design India",
-    "embedded systems company",
-    "edge AI hardware",
-    "IoT device engineering",
-    "smart electronics development",
-    "firmware development services",
-    "custom hardware design",
+    "IoT products",
     "robotics hardware",
-    "GAS AI product development",
+    "edge AI vision",
+    "GAS AI products",
+    "smart automation hardware",
+    "virtual lab software",
+    "R&D technology",
   ],
   alternates: {
     canonical: "https://gasautomation.ai/products",
   },
   openGraph: {
-    title: "Product Development & Custom IoT Hardware | GAS AI",
+    title: "Core Products | AI, IoT & Robotics Hardware | GAS AI",
     description:
-      "Custom PCB design, embedded systems, edge AI hardware, and IoT device engineering. From concept to mass production.",
+      "Explore enterprise-grade smart automation hardware, edge AI modules, robotics controllers, and virtual training sandboxes.",
     url: "https://gasautomation.ai/products",
-    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS AI Product Development" }],
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS AI Products" }],
   },
   twitter: {
-    title: "Product Development & Custom IoT Hardware | GAS AI",
+    title: "Core Products | AI, IoT & Robotics Hardware | GAS AI",
     description:
-      "Custom PCB design, embedded systems, edge AI hardware, and IoT device engineering. From concept to mass production.",
+      "Explore enterprise-grade smart automation hardware, edge AI modules, robotics controllers, and virtual training sandboxes.",
   },
 };
 
-const FEATURES = [
+const PRODUCTS = [
   {
-    name: "Custom PCB & Embedded Systems",
-    category: "Hardware",
-    description: "Design and prototyping of custom printed circuit boards (PCBs) integrated with microcontrollers (ARM, ESP32, STM32) for dedicated industrial use cases.",
-    icon: Cpu,
-  },
-  {
-    name: "Edge AI Vision Modules",
-    category: "AI & Vision",
-    description: "High-performance camera modules with onboard neural processing units (NPUs) optimized for real-time defect detection and facial recognition at the edge.",
-    icon: Video,
-  },
-  {
-    name: "IoT Hub & Gateway Integration",
-    category: "Networking",
-    description: "Centralized hubs supporting Zigbee, Z-Wave, Matter, and LoRaWAN protocols for seamless communication across remote sensor networks.",
+    name: "GAS Smart IoT Hub",
+    category: "Smart Automation & IoT",
+    description: "Central multiprotocol gateway (supporting Zigbee, Matter, Z-Wave, and LoRaWAN) connecting distributed sensor meshes into unified cloud APIs for automated control panels.",
     icon: Wifi,
+    glow: "rgba(100,255,218,0.18)", // Cyan glow
+    badgeColor: "text-brand-cyan bg-brand-cyan/10 border-brand-cyan/20",
+    buttonText: "Request IoT Specs"
   },
   {
-    name: "High-Torque Robotics Actuators",
-    category: "Robotics",
-    description: "Precision servo actuators and kinematics control designed for ROS-compatible robotic arms, AGVs, and industrial autonomous systems.",
-    icon: Zap,
+    name: "GAS Humanoid Actuator",
+    category: "Robotics & Kinematics",
+    description: "High-torque, sub-millisecond precision mechanical actuator core designed for ROS-compatible humanoid joints, articulated robotic arms, and autonomous rovers.",
+    icon: Cpu,
+    glow: "rgba(0,255,136,0.18)", // Neon Green glow
+    badgeColor: "text-neon-green bg-neon-green/10 border-neon-green/20",
+    buttonText: "Request Robotics Datasheet"
   },
   {
-    name: "Scalable Cloud Architecture",
-    category: "Software",
-    description: "Secure, scalable backend infrastructures to ingest, process, and visualize millions of data points from connected hardware in real-time.",
-    icon: Server,
+    name: "GAS Edge NPU Vision Module",
+    category: "Edge AI & Vision",
+    description: "Industrial camera unit with onboard 8-TOPS neural processing accelerators for low-latency visual inspections, automated defect verification, and edge security.",
+    icon: Video,
+    glow: "rgba(167,139,250,0.18)", // Violet glow
+    badgeColor: "text-purple-400 bg-purple-400/10 border-purple-400/20",
+    buttonText: "Request Vision Specs"
   },
   {
-    name: "Firmware & OS Development",
-    category: "Embedded Software",
-    description: "Custom firmware development, RTOS implementation, and OTA (Over-The-Air) update systems for reliable long-term device operation.",
-    icon: Code,
-  },
-  {
-    name: "Industrial Automation Controllers",
-    category: "Controllers",
-    description: "Ruggedized edge controllers with built-in Ethernet, RS485, and CAN bus for heavy industrial automation and PLC integration.",
-    icon: Layers,
-  },
-  {
-    name: "Hardware Security & Encryption",
-    category: "Security",
-    description: "Cryptographic coprocessors and secure boot implementations to ensure hardware devices cannot be tampered with or compromised.",
-    icon: ShieldCheck,
+    name: "GAS Virtual Labs Sandbox",
+    category: "Research & Development",
+    description: "Our proprietary 3D interactive cloud workspace allowing developers and interns to simulate code deployments on virtual hardware rigs in real-time.",
+    icon: GraduationCap,
+    glow: "rgba(251,146,60,0.18)", // Orange glow
+    badgeColor: "text-orange-400 bg-orange-400/10 border-orange-400/20",
+    buttonText: "Launch Virtual Sandbox"
   }
 ];
-
-import { PageHero3D } from "@/components/three/PageHero3D";
 
 export default function ProductsPage() {
   return (
     <div className="py-24 bg-black min-h-screen relative overflow-hidden">
       <PageHero3D shape="dodecahedron" color="#64FFDA" />
+      {/* Visual cybernetic mesh background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808006_1px,transparent_1px),linear-gradient(to_bottom,#80808006_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 relative z-10">
-        <div className="max-w-3xl mb-16">
+        <div className="max-w-3xl mb-20">
           <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
-            Product Development <span className="text-brand-cyan">Features</span>
+            Core <span className="text-neon-green">Products</span>
           </h1>
           <p className="text-xl text-gray-400 leading-relaxed">
-            From concept to mass production, we engineer comprehensive product development services for smart electronics, IoT devices, and custom AI hardware. We build robust systems tailored to your enterprise requirements.
+            Green Automation Solution (GAS AI) designs, prototypes, and manufactures enterprise-grade hardware and software. Explore our core systems built for scaling automation, robotics networks, and virtual engineering labs.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-20">
-          {FEATURES.map((feature) => {
-            const Icon = feature.icon;
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+          {PRODUCTS.map((product) => {
+            const Icon = product.icon;
             return (
-              <div key={feature.name} className="glass-panel rounded-2xl p-6 flex flex-col h-full hover:border-brand-cyan/40 transition-colors">
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6">
-                  <Icon className="w-6 h-6 text-brand-cyan" />
-                </div>
-                <div className="text-xs font-semibold text-neon-green uppercase tracking-wider mb-2">
-                  {feature.category}
-                </div>
-                <h3 className="text-xl font-heading font-bold text-white mb-3">
-                  {feature.name}
-                </h3>
-                <p className="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">
-                  {feature.description}
-                </p>
+              <div key={product.name} className="h-full">
+                <TiltCard glowColor={product.glow} className="p-8 flex flex-col justify-between h-full bg-brand-gray/20">
+                  <div className="flex flex-col h-full justify-between">
+                    <div>
+                      {/* Product Icon */}
+                      <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6">
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      
+                      {/* Product Category Tag */}
+                      <span className={cn("inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border mb-4", product.badgeColor)}>
+                        {product.category}
+                      </span>
+                      
+                      {/* Product Name */}
+                      <h3 className="text-xl font-heading font-bold text-white mb-3 tracking-tight">
+                        {product.name}
+                      </h3>
+                      
+                      {/* Product Description */}
+                      <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                        {product.description}
+                      </p>
+                    </div>
+
+                    {/* Action Link */}
+                    <Link href="/contact" className="inline-flex items-center text-xs font-semibold text-brand-cyan hover:text-neon-green transition-colors mt-auto group">
+                      {product.buttonText}
+                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </TiltCard>
               </div>
             );
           })}
         </div>
 
-        <div className="bg-brand-gray/50 border border-white/10 rounded-3xl p-10 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-neon-green/5 blur-[100px] pointer-events-none" />
-          <div className="relative z-10">
-            <h2 className="text-3xl font-heading font-bold text-white mb-4">Have a custom hardware idea?</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
-              Our embedded engineering team will design the architecture, develop the firmware, and handle cloud integration to bring your innovative ideas to market rapidly.
+        {/* Custom Hardware Block */}
+        <div className="glass-panel border border-white/10 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-neon-green/5 blur-[120px] pointer-events-none" />
+          <div className="relative z-10 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">Design Custom Hardware for Your Scale</h2>
+            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+              Have a specific IoT sensor array or robotic control board requirement? Our R&D engineering group develops custom PCB schematics, RTOS firmware solutions, and secure cloud API integration.
             </p>
-            <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "bg-neon-green text-black hover:bg-neon-green/90 box-glow")}>
-              Discuss Your Project
+            <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "bg-neon-green text-black hover:bg-neon-green/90 font-semibold box-glow")}>
+              Discuss Custom Hardware R&D
             </Link>
           </div>
         </div>

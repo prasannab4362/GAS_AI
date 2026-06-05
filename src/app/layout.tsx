@@ -5,6 +5,7 @@ import { SmoothScrolling } from "@/components/smooth-scrolling";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ParticleField } from "@/components/three/ParticleField";
+import { Preloader } from "@/components/ui/Preloader";
 
 
 const orbitron = Orbitron({
@@ -184,6 +185,7 @@ export default function RootLayout({
       className={`${orbitron.variable} ${inter.variable} ${poppins.variable} h-full antialiased dark`}
     >
       <body className="min-h-full flex flex-col font-sans bg-black text-white selection:bg-neon-green/30 selection:text-white">
+        <Preloader />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
