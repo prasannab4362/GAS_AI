@@ -6,11 +6,12 @@ import { cn } from "@/lib/utils";
 import { PageHero3D } from "@/components/three/PageHero3D";
 
 export const metadata: Metadata = {
-  title: "GAS Virtual AI Labs - Remote AI & ML Internship Program",
+  title: "GAS Virtual Lab | Remote AI & ML Internship Program | GAS AI",
   description:
-    "Join GAS Virtual AI Labs — 100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics. Live projects, corporate certification, global access.",
+    "Join GAS Virtual Lab — 100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics. Live projects, corporate certification, global access.",
   keywords: [
     "GAS virtual lab",
+    "labs",
     "virtual AI labs",
     "AI internship program India",
     "remote AI internship",
@@ -30,14 +31,14 @@ export const metadata: Metadata = {
     canonical: "https://gasautomation.ai/labs",
   },
   openGraph: {
-    title: "GAS Virtual AI Labs - Remote AI & ML Internship Program",
+    title: "GAS Virtual Lab | Remote AI & ML Internship Program | GAS AI",
     description:
       "100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics. Build real tech with GAS AI Virtual Labs.",
     url: "https://gasautomation.ai/labs",
-    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS Virtual AI Labs - Internship Program" }],
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS Virtual Lab - Internship Program" }],
   },
   twitter: {
-    title: "GAS Virtual AI Labs - Remote AI & ML Internship Program",
+    title: "GAS Virtual Lab | Remote AI & ML Internship Program | GAS AI",
     description:
       "100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics. Build real tech with GAS AI.",
   },
@@ -55,8 +56,62 @@ const PROGRAMS = [
 ];
 
 export default function LabsPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "GAS Virtual Lab",
+    "url": "https://gasautomation.ai/labs",
+    "logo": "https://gasautomation.ai/logo.png",
+    "description": "Join GAS Virtual Lab for 100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics with corporate certification.",
+    "sameAs": [
+      "https://github.com/prasannab4362/GAS_AI"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "GAS Virtual Lab Programs",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "AI & Deep Learning Internship",
+            "description": "Virtual training on artificial intelligence and neural networks."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Computer Vision Internship",
+            "description": "Hands-on projects in image classification, object detection and tracking."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "NLP & LLM Internship",
+            "description": "Building custom language agents, chat tools and document summarization pipelines."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "IoT & Robotics Internship",
+            "description": "Remote micro-controller development, sensor telemetry, and automation systems."
+          }
+        }
+      ]
+    }
+  };
+
   return (
     <div className="py-24 bg-black min-h-screen relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <PageHero3D shape="torusKnot" color="#64FFDA" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-20">

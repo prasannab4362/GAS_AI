@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "SparkInnov8 - Robotics & AI Labs for Schools",
+  title: "SparkInnov8 Lab | School Robotics & AI Lab Setup | GAS AI",
   description:
     "SparkInnov8 by GAS AI brings Arduino, IoT, robotics & AI labs to schools. Complete lab setup, curriculum & training for the next generation of student innovators.",
   keywords: [
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
     canonical: "https://gasautomation.ai/sparkinnov8",
   },
   openGraph: {
-    title: "SparkInnov8 - Robotics & AI Labs for Schools | GAS AI",
+    title: "SparkInnov8 Lab | School Robotics & AI Lab Setup | GAS AI",
     description:
       "Complete Arduino, IoT, robotics & AI lab setup for schools. Curriculum, training & certification for the next generation of innovators.",
     url: "https://gasautomation.ai/sparkinnov8",
     images: [{ url: "/logo.png", width: 1200, height: 630, alt: "SparkInnov8 - Robotics & AI Labs for Schools" }],
   },
   twitter: {
-    title: "SparkInnov8 - Robotics & AI Labs for Schools | GAS AI",
+    title: "SparkInnov8 Lab | School Robotics & AI Lab Setup | GAS AI",
     description:
       "Arduino, IoT, robotics & AI lab setup for schools. Empowering the next generation of student innovators.",
   },
@@ -78,8 +78,34 @@ const PROGRAMS = [
 import { PageHero3D } from "@/components/three/PageHero3D";
 
 export default function SparkInnov8Page() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "SparkInnov8 School Lab Setup",
+    "image": "https://gasautomation.ai/logo.png",
+    "description": "Complete robotics, Arduino, IoT & AI lab setup program for schools. Includes curriculum, equipment, student training and certifications.",
+    "brand": {
+      "@type": "Brand",
+      "name": "SparkInnov8"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://gasautomation.ai/sparkinnov8",
+      "priceCurrency": "INR",
+      "price": "0",
+      "valueAddedService": {
+        "@type": "Service",
+        "name": "Robotics Curriculum and Lab Installation"
+      }
+    }
+  };
+
   return (
     <div className="py-24 bg-brand-black min-h-screen relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <PageHero3D shape="icosahedron" color="#00FF88" />
       {/* Background Effect */}
       <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-brand-cyan/10 to-transparent pointer-events-none" />

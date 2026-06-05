@@ -102,41 +102,47 @@ const itemVariants: Variants = {
   }
 };
 
-export function ServicesSection() {
+interface ServicesSectionProps {
+  hideHeader?: boolean;
+}
+
+export function ServicesSection({ hideHeader = false }: ServicesSectionProps) {
   return (
-    <section className="py-24 bg-black relative overflow-hidden">
+    <section className="py-12 bg-black relative overflow-hidden">
       {/* Subtle background grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:6rem_6rem]" />
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="text-sm font-semibold tracking-widest text-neon-green uppercase mb-4"
-          >
-            Core Ecosystem
-          </motion.h2>
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.2 }}
-            className="text-3xl md:text-5xl font-heading font-bold text-white mb-6"
-          >
-            Intelligent Automation Services
-          </motion.h3>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.3 }}
-            className="text-gray-400 text-lg"
-          >
-            Explore our comprehensive suite of smart solutions designed to optimize efficiency, security, and productivity across every domain.
-          </motion.p>
-        </div>
+        {!hideHeader && (
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="text-sm font-semibold tracking-widest text-neon-green uppercase mb-4"
+            >
+              Core Ecosystem
+            </motion.h2>
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: 0.2 }}
+              className="text-3xl md:text-5xl font-heading font-bold text-white mb-6"
+            >
+              Intelligent Automation Services
+            </motion.h3>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: 0.3 }}
+              className="text-gray-400 text-lg"
+            >
+              Explore our comprehensive suite of smart solutions designed to optimize efficiency, security, and productivity across every domain.
+            </motion.p>
+          </div>
+        )}
 
         <motion.div 
           variants={containerVariants}
@@ -149,25 +155,23 @@ export function ServicesSection() {
             const Icon = service.icon;
             return (
               <motion.div key={service.title} variants={itemVariants}>
-                <TiltCard glowColor={service.glowColor}>
-                  <Link href={service.href} className="block h-full group">
-                    <div className="h-full p-8 rounded-2xl glass-panel relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:box-glow hover:border-neon-green/40">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110 group-hover:bg-neon-green/10" />
-                      
-                      <Icon className={`w-12 h-12 mb-6 ${service.color} transition-transform group-hover:scale-110`} />
-                      
-                      <h4 className="text-xl font-heading font-semibold text-white mb-3 group-hover:text-neon-green transition-colors">
-                        {service.title}
-                      </h4>
-                      
-                      <p className="text-gray-400 text-sm leading-relaxed mb-6 group-hover:text-gray-300">
-                        {service.description}
-                      </p>
-                      
-                      <div className="mt-auto flex items-center text-sm font-medium text-brand-cyan group-hover:text-neon-green">
-                        Learn more
-                        <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-2" />
-                      </div>
+                <TiltCard glowColor={service.glowColor} className="p-8 flex flex-col justify-between relative overflow-hidden">
+                  <Link href={service.href} className="block h-full w-full group">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110 group-hover:bg-neon-green/10" />
+                    
+                    <Icon className={`w-12 h-12 mb-6 ${service.color} transition-transform group-hover:scale-110`} />
+                    
+                    <h4 className="text-xl font-heading font-semibold text-white mb-3 group-hover:text-neon-green transition-colors">
+                      {service.title}
+                    </h4>
+                    
+                    <p className="text-gray-400 text-sm leading-relaxed mb-6 group-hover:text-gray-300">
+                      {service.description}
+                    </p>
+                    
+                    <div className="mt-auto flex items-center text-sm font-medium text-brand-cyan group-hover:text-neon-green">
+                      Learn more
+                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-2" />
                     </div>
                   </Link>
                 </TiltCard>

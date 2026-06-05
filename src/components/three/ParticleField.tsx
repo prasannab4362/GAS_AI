@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -9,6 +9,17 @@ function Particles({ count = 1500 }: { count?: number }) {
   const mouse = useRef({ x: 0, y: 0 });
 
   const { viewport } = useThree();
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      const x = (event.clientX / window.innerWidth) * 2 - 1;
+      const y = -(event.clientY / window.innerHeight) * 2 + 1;
+      mouse.current.x = x;
+      mouse.current.y = y;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   const [positions, velocities, colors] = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -38,15 +49,15 @@ function Particles({ count = 1500 }: { count?: number }) {
     return [pos, vel, col];
   }, [count]);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (!mesh.current) return;
     const geo = mesh.current.geometry;
     const posAttr = geo.attributes.position as THREE.BufferAttribute;
     const arr = posAttr.array as Float32Array;
 
-    // Subtle mouse influence
-    const mx = (state.pointer.x * viewport.width) / 2;
-    const my = (state.pointer.y * viewport.height) / 2;
+    // Subtle mouse influence using globally tracked mouse coordinates
+    const mx = (mouse.current.x * viewport.width) / 2;
+    const my = (mouse.current.y * viewport.height) / 2;
     mouse.current.x += (mx - mouse.current.x) * 0.01;
     mouse.current.y += (my - mouse.current.y) * 0.01;
 
@@ -96,7 +107,6 @@ function Particles({ count = 1500 }: { count?: number }) {
   );
 }
 
-import { useState, useEffect } from "react";
 
 export function ParticleField() {
   const [mounted, setMounted] = useState(false);

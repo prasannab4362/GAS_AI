@@ -1,6 +1,6 @@
 "use client";
 
-import dynamic from "next/dynamic";
+
 import { motion } from "framer-motion";
 import { ArrowRight, Cpu } from "lucide-react";
 import Link from "next/link";
@@ -8,10 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 
-const HeroScene = dynamic(
-  () => import("@/components/three/HeroScene").then((mod) => ({ default: mod.HeroScene })),
-  { ssr: false }
-);
+import { HeroScene } from "@/components/three/HeroScene";
 
 const KEYWORDS = [
   "AI Automation",

@@ -1,22 +1,34 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import * as THREE from "three";
 
 function FloatingShape({ type, color }: { type: string; color: string }) {
   const ref = useRef<THREE.Mesh>(null!);
+  const mouse = useRef({ x: 0, y: 0 });
   const { viewport } = useThree();
 
-  useFrame((state) => {
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      const x = (event.clientX / window.innerWidth) * 2 - 1;
+      const y = -(event.clientY / window.innerHeight) * 2 + 1;
+      mouse.current.x = x;
+      mouse.current.y = y;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useFrame(() => {
     if (!ref.current) return;
     ref.current.rotation.x += 0.005;
     ref.current.rotation.y += 0.008;
 
-    // Mouse follow
-    const x = (state.pointer.x * viewport.width) / 25;
-    const y = (state.pointer.y * viewport.height) / 25;
+    // Mouse follow using globally tracked mouse coordinates
+    const x = (mouse.current.x * viewport.width) / 25;
+    const y = (mouse.current.y * viewport.height) / 25;
     ref.current.rotation.z += (x * 0.01 - ref.current.rotation.z * 0.01);
   });
 
@@ -41,8 +53,6 @@ function FloatingShape({ type, color }: { type: string; color: string }) {
     </Float>
   );
 }
-
-import { useState, useEffect } from "react";
 
 interface PageHero3DProps {
   shape?: string;

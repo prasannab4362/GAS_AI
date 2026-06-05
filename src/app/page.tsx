@@ -41,8 +41,31 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "GAS AI",
+    "alternateName": "Green Automation Solution",
+    "url": "https://gasautomation.ai",
+    "logo": "https://gasautomation.ai/logo.png",
+    "description": "GAS AI provides enterprise-grade AI automation, smart home systems, industrial IoT, robotics, and computer vision solutions.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "",
+      "contactType": "customer service",
+      "email": "contact@gasautomation.ai"
+    },
+    "sameAs": [
+      "https://github.com/prasannab4362/GAS_AI"
+    ]
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <HeroSection />
       <TrustSection />
       <ServicesSection />
