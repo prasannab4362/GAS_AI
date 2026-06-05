@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -11,7 +10,6 @@ import { useState } from "react";
 const NAV_LINKS = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/services" },
-  { name: "AI Automation", href: "/services/ai-automation" },
   { name: "Virtual AI Labs", href: "/labs" },
   { name: "SparkInnov8 (Schools)", href: "/sparkinnov8" },
   { name: "Products", href: "/products" },
@@ -58,12 +56,7 @@ export function Navbar() {
                       {link.name}
                     </span>
                     {isActive && (
-                      <motion.div
-                        layoutId="navbar-indicator"
-                        className="absolute inset-0 border-b-2 border-neon-green"
-                        initial={false}
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                      />
+                      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-neon-green" />
                     )}
                   </Link>
                 );
@@ -90,12 +83,7 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-black border-b border-white/10"
-        >
+        <div className="md:hidden bg-black border-b border-white/10">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href;
@@ -122,7 +110,7 @@ export function Navbar() {
               </Link>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
     </nav>
   );

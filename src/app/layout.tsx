@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Orbitron, Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import { SmoothScrolling } from "@/components/smooth-scrolling";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { ParticleField } from "@/components/three/ParticleField";
 import { Preloader } from "@/components/ui/Preloader";
+import { ParticleCanvas } from "@/components/particle-canvas";
 
 
 const orbitron = Orbitron({
@@ -186,18 +185,18 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans bg-black text-white selection:bg-neon-green/30 selection:text-white">
         <Preloader />
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <ParticleCanvas />
+        </div>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <ParticleField />
-        <SmoothScrolling>
-          <Navbar />
-          <main className="flex-1 pt-20">
-            {children}
-          </main>
-          <Footer />
-        </SmoothScrolling>
+        <Navbar />
+        <main className="flex-1 pt-20 relative z-10">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

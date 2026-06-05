@@ -14,12 +14,26 @@ export function ParticleCanvas() {
 
     let animationFrameId: number;
     let particles: Particle[] = [];
+    const mouse = { x: null as number | null, y: null as number | null };
 
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       initParticles();
     };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = null;
+      mouse.y = null;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
 
     class Particle {
       x: number;
@@ -83,6 +97,24 @@ export function ParticleCanvas() {
       }
     };
 
+    const drawMouseConnections = () => {
+      if (!ctx || mouse.x === null || mouse.y === null) return;
+      for (let i = 0; i < particles.length; i++) {
+        const dx = particles[i].x - mouse.x;
+        const dy = particles[i].y - mouse.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 180) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(100, 255, 218, ${0.35 - distance / 500})`;
+          ctx.lineWidth = 0.75;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+    };
+
     const animate = () => {
       if (!ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -93,6 +125,7 @@ export function ParticleCanvas() {
       });
       
       drawConnections();
+      drawMouseConnections();
       
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -103,6 +136,8 @@ export function ParticleCanvas() {
 
     return () => {
       window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

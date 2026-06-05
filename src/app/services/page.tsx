@@ -35,8 +35,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { PageHero3D } from "@/components/three/PageHero3D";
-
 export default function ServicesPage() {
   const schema = {
     "@context": "https://schema.org",
@@ -103,7 +101,6 @@ export default function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <PageHero3D shape="torusKnot" color="#00FF88" />
       
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center pt-10">
         <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 animate-fade-in">

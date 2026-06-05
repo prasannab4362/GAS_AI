@@ -74,12 +74,9 @@ const BLOG_POSTS = [
   },
 ];
 
-import { PageHero3D } from "@/components/three/PageHero3D";
-
 export default function InsightsPage() {
   return (
     <div className="py-24 bg-black min-h-screen relative overflow-hidden">
-      <PageHero3D shape="sphere" color="#64FFDA" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 relative z-10">
         <div className="max-w-3xl mb-16">
           <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">

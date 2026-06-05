@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView, animate } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { motion, Variants } from "framer-motion";
 
 const STATS = [
   { label: "Automation Solutions", value: 50, suffix: "+" },
@@ -10,26 +9,24 @@ const STATS = [
   { label: "Training Programs", value: 10, suffix: "+" },
 ];
 
-function Counter({ from = 0, to, suffix = "", duration = 2 }: { from?: number, to: number, suffix?: string, duration?: number }) {
-  const [count, setCount] = useState(from);
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
-  useEffect(() => {
-    if (inView) {
-      const controls = animate(from, to, {
-        duration,
-        ease: "easeOut",
-        onUpdate(value) {
-          setCount(Math.floor(value));
-        },
-      });
-      return () => controls.stop();
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
     }
-  }, [from, to, duration, inView]);
+  }
+};
 
-  return <span ref={ref}>{count}{suffix}</span>;
-}
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+};
 
 export function TrustSection() {
   return (
@@ -47,69 +44,67 @@ export function TrustSection() {
           >
             Trusted Intelligence
           </motion.h2>
-          <motion.p
+          <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
             className="text-2xl md:text-3xl font-heading text-white max-w-3xl mx-auto"
           >
             Powering the future of enterprise and home automation globally.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
-          {STATS.map((stat, index) => (
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center"
+        >
+          {STATS.map((stat) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-              className="flex flex-col items-center justify-center p-6 rounded-2xl glass-panel group hover:border-neon-green/30 transition-colors"
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.03 }}
+              className="flex flex-col items-center justify-center p-6 rounded-2xl glass-panel group hover:border-neon-green/30 transition-all duration-300"
             >
               <div className="text-4xl md:text-5xl font-heading font-bold text-white mb-2 group-hover:text-neon-green transition-colors">
-                <Counter to={stat.value} suffix={stat.suffix} />
+                {stat.value}{stat.suffix}
               </div>
               <div className="text-sm md:text-base text-gray-400 font-medium uppercase tracking-wider">
                 {stat.label}
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Technologies Ticker */}
-        <div className="mt-20 overflow-hidden relative">
-          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-brand-gray to-transparent z-10" />
-          <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-brand-gray to-transparent z-10" />
-          
-          <motion.div 
-            className="flex space-x-12 whitespace-nowrap"
-            animate={{ x: [0, -1000] }}
-            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-          >
-            {[...Array(2)].map((_, i) => (
-              <div key={i} className="flex space-x-12 items-center text-xl font-heading text-gray-500 font-bold uppercase tracking-widest">
-                <span>AI Automation</span>
-                <span className="text-neon-green/20">•</span>
-                <span>Robotics</span>
-                <span className="text-neon-green/20">•</span>
-                <span>IoT</span>
-                <span className="text-neon-green/20">•</span>
-                <span>Computer Vision</span>
-                <span className="text-neon-green/20">•</span>
-                <span>Industrial Systems</span>
-                <span className="text-neon-green/20">•</span>
-                <span>AI Agents</span>
-                <span className="text-neon-green/20">•</span>
-                <span>Smart Security</span>
-                <span className="text-neon-green/20">•</span>
-                <span>Enterprise Automation</span>
-                <span className="text-neon-green/20">•</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+        {/* Technologies List (Static & Clean) */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="mt-20 border-t border-white/5 pt-12"
+        >
+          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm font-mono text-gray-500 font-bold uppercase tracking-widest">
+            <span>AI Automation</span>
+            <span className="text-neon-green/20">•</span>
+            <span>Robotics</span>
+            <span className="text-neon-green/20">•</span>
+            <span>IoT</span>
+            <span className="text-neon-green/20">•</span>
+            <span>Computer Vision</span>
+            <span className="text-neon-green/20">•</span>
+            <span>Industrial Systems</span>
+            <span className="text-neon-green/20">•</span>
+            <span>AI Agents</span>
+            <span className="text-neon-green/20">•</span>
+            <span>Smart Security</span>
+            <span className="text-neon-green/20">•</span>
+            <span>Enterprise Automation</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

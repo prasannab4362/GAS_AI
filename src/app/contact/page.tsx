@@ -4,9 +4,6 @@ import { useState } from "react";
 import { Send, Mail, MessageCircle, Calendar, MessageSquare, Phone, ChevronLeft, ChevronRight, Clock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const PageHero3D = dynamic(() => import("@/components/three/PageHero3D").then((m) => m.PageHero3D), { ssr: false });
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", service: "", message: "" });
@@ -90,16 +87,16 @@ export default function ContactPage() {
 
   return (
     <div className="py-24 bg-[#0a0a0a] min-h-screen text-white font-sans selection:bg-neon-green/30 selection:text-white relative overflow-hidden">
-      <PageHero3D shape="torus" color="#00FF88" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-10 relative z-10">
         
         {/* Top Row: Form & Calendly */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 overflow-hidden">
           
           {/* Left: Contact Form */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="space-y-6"
           >
             <div className="flex items-center gap-3 mb-8">
@@ -190,9 +187,9 @@ export default function ContactPage() {
 
           {/* Right: Calendly */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
             className="space-y-6"
           >
             <div className="flex items-center gap-3 mb-8">
@@ -341,7 +338,13 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20">
           
           {/* Bottom Left: Contact Info + FAQ */}
-          <div className="space-y-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8 }}
+            className="space-y-12"
+          >
             
 
             {/* FAQs */}
@@ -363,10 +366,16 @@ export default function ContactPage() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
           {/* Bottom Right: Expectations & Stats */}
-          <div className="space-y-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="space-y-6"
+          >
             
             <div className="bg-[#111111] border border-neon-green/10 p-8 rounded-3xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-neon-green/5 blur-3xl rounded-full"></div>
@@ -405,7 +414,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
         

@@ -3,15 +3,15 @@
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { 
-  Home, 
-  Briefcase, 
-  Factory, 
-  BrainCircuit, 
-  Bot, 
-  ShieldCheck, 
-  Cpu, 
-  GraduationCap,
-  ArrowRight
+   Home, 
+   Briefcase, 
+   Factory, 
+   BrainCircuit, 
+   Bot, 
+   ShieldCheck, 
+   Cpu, 
+   GraduationCap,
+   ArrowRight
 } from "lucide-react";
 import { TiltCard } from "@/components/three/TiltCard";
 

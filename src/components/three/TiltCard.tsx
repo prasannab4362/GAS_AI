@@ -1,56 +1,33 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
 interface TiltCardProps {
   children: React.ReactNode;
   className?: string;
-  glowColor?: string;
+  glowColor?: string; // Kept for backward compatibility, but overridden with dynamic HSL
 }
 
-export function TiltCard({ children, className = "", glowColor = "rgba(0,255,136,0.15)" }: TiltCardProps) {
+export function TiltCard({ children, className = "", glowColor }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
+  const [baseHue, setBaseHue] = useState(120); // Default baseline
 
-  // Motion values for tilt angles
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
-
-  // Soft elastic spring motion for premium responsive tilt feel
-  const springConfig = { stiffness: 200, damping: 25, mass: 0.6 };
-  const xSpring = useSpring(rotateX, springConfig);
-  const ySpring = useSpring(rotateY, springConfig);
+  useEffect(() => {
+    // Generate a random base hue on mount so each card gets its own start color
+    setBaseHue(Math.floor(Math.random() * 360));
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    
-    // Position of cursor relative to card top-left corner
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    // Normalised position between -1 and 1
-    const normX = (x - centerX) / centerX;
-    const normY = (y - centerY) / centerY;
-
-    // Tilt limits: 12 degrees max rotation
-    rotateX.set(normY * -12);
-    rotateY.set(normX * 12);
-
-    // Track the cursor for the dynamic background radial glow reflection
     setGlowPos({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
     });
-  };
-
-  const handleTouchStart = () => {
-    setIsHovered(true);
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -59,38 +36,25 @@ export function TiltCard({ children, className = "", glowColor = "rgba(0,255,136
     const touch = e.touches[0];
     const x = touch.clientX - rect.left;
     const y = touch.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const normX = (x - centerX) / centerX;
-    const normY = (y - centerY) / centerY;
-
-    rotateX.set(normY * -12);
-    rotateY.set(normX * 12);
-
     setGlowPos({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
     });
   };
 
-  const handleTouchEnd = () => {
-    setIsHovered(false);
-    rotateX.set(0);
-    rotateY.set(0);
-    setGlowPos({ x: 50, y: 50 });
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
+  const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => {
     setIsHovered(false);
-    rotateX.set(0);
-    rotateY.set(0);
     setGlowPos({ x: 50, y: 50 });
   };
+
+  // Calculate dynamic hue based on cursor position relative coordinates
+  const currentHue = isHovered
+    ? (baseHue + Math.round((glowPos.x + glowPos.y) * 1.5)) % 360
+    : baseHue;
+
+  const dynamicGlow = `rgba(${hslToRgb(currentHue, 1, 0.6)}, 0.15)`;
+  const dynamicBorder = `rgba(${hslToRgb(currentHue, 1, 0.65)}, 0.45)`;
 
   return (
     <div
@@ -98,38 +62,51 @@ export function TiltCard({ children, className = "", glowColor = "rgba(0,255,136
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onTouchStart={handleTouchStart}
+      onTouchStart={handleMouseEnter}
       onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+      onTouchEnd={handleMouseLeave}
       style={{
-        perspective: "1000px",
+        background: isHovered
+          ? `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, ${dynamicGlow} 0%, rgba(255,255,255,0.01) 60%, transparent 100%)`
+          : "rgba(255,255,255,0.02)",
+        borderColor: isHovered ? dynamicBorder : "rgba(255, 255, 255, 0.1)",
+        boxShadow: isHovered ? `0 0 25px -5px ${dynamicGlow}` : "none",
+        transition: isHovered
+          ? "border-color 0.15s ease, box-shadow 0.15s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+          : "background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
       }}
-      className="h-full w-full"
+      className={`h-full w-full rounded-2xl glass-panel relative overflow-hidden border hover:scale-[1.02] ${className}`}
     >
-      <motion.div
-        style={{
-          rotateX: xSpring,
-          rotateY: ySpring,
-          transformStyle: "preserve-3d",
-          background: isHovered 
-            ? `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, ${glowColor} 0%, rgba(255,255,255,0.01) 60%, transparent 100%)`
-            : "rgba(255,255,255,0.02)",
-        }}
-        className={`h-full w-full rounded-2xl glass-panel relative transition-all duration-300 ${
-          isHovered ? "border-neon-green/30 box-glow" : "border-white/10"
-        } ${className}`}
-      >
-        {/* TranslateZ layer gives the premium floating depth effect to the inner elements */}
-        <div 
-          style={{ 
-            transform: "translateZ(25px)", 
-            transformStyle: "preserve-3d" 
-          }} 
-          className="h-full w-full"
-        >
-          {children}
-        </div>
-      </motion.div>
+      <div className="h-full w-full">
+        {children}
+      </div>
     </div>
   );
+}
+
+// Helper to convert HSL to RGB string for embedding in rgba()
+function hslToRgb(h: number, s: number, l: number): string {
+  let r, g, b;
+  h = h / 360;
+
+  if (s === 0) {
+    r = g = b = l; // achromatic
+  } else {
+    const hue2rgb = (p: number, q: number, t: number) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    };
+
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1 / 3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1 / 3);
+  }
+
+  return `${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}`;
 }

@@ -94,7 +94,7 @@ export function FeaturedProjectsSection() {
                   {/* Content */}
                   <div className="p-6 relative z-20 bg-brand-gray/90 backdrop-blur-sm border-t border-white/5">
                     <div className="text-xs font-semibold text-neon-green uppercase tracking-wider mb-2">
-                      {solution.category}
+                       {solution.category}
                     </div>
                     <h4 className="text-xl font-heading font-bold text-white mb-3">
                       {solution.title}

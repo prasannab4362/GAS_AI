@@ -93,20 +93,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-import { PageHero3D } from "@/components/three/PageHero3D";
-import { NodeNetworkScene } from "@/components/three/NodeNetworkScene";
-
-const SERVICE_VISUALS: Record<string, { shape: string; color: string }> = {
-  "home-automation": { shape: "torus", color: "#60a5fa" },
-  "business-automation": { shape: "icosahedron", color: "#c084fc" },
-  "industrial-automation": { shape: "octahedron", color: "#fb923c" },
-  "ai-automation": { shape: "torusKnot", color: "#00ff88" },
-  "computer-vision": { shape: "sphere", color: "#64ffda" },
-  "robotics": { shape: "dodecahedron", color: "#f87171" },
-  "security": { shape: "torus", color: "#38bdf8" },
-  "product-development": { shape: "octahedron", color: "#a78bfa" },
-};
-
 export default async function ServicePage({ params }: { params: { slug: string } }) {
   const { slug } = await params;
   const service = SERVICES_DATA[slug];
@@ -115,15 +101,8 @@ export default async function ServicePage({ params }: { params: { slug: string }
     notFound();
   }
 
-  const visual = SERVICE_VISUALS[slug] || { shape: "icosahedron", color: "#00ff88" };
-
   return (
     <article className="py-24 bg-brand-black min-h-screen relative overflow-hidden">
-      {slug === "ai-automation" || slug === "business-automation" ? (
-        <NodeNetworkScene />
-      ) : (
-        <PageHero3D shape={visual.shape} color={visual.color} />
-      )}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl pt-10 relative z-10">
         <Link href="/services" className="inline-flex items-center text-brand-cyan hover:text-neon-green transition-colors mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to Services

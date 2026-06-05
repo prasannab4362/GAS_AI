@@ -57,7 +57,7 @@ export function HeroSection() {
           GAS <span className="text-neon-green text-glow">AI</span>
           <br />
           <span className="text-3xl sm:text-5xl md:text-7xl font-bold text-gray-300">
-            Smart Automation, IoT & Robotics
+            AI <span className="font-sans font-light italic text-neon-green/90 px-1">&</span> smart Automation Hub
           </span>
         </motion.h1>
 
