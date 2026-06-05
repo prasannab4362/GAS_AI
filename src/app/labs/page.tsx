@@ -3,7 +3,7 @@ import { Terminal, Code, Cpu, Database, ArrowRight, ExternalLink } from "lucide-
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { PageHero3D } from "@/components/three/PageHero3D";
+import { VirtualLabScene } from "@/components/three/VirtualLabScene";
 
 export const metadata: Metadata = {
   title: "GAS Virtual Lab | Remote AI & ML Internship Program | GAS AI",
@@ -112,7 +112,7 @@ export default function LabsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <PageHero3D shape="torusKnot" color="#64FFDA" />
+      <VirtualLabScene />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-20">
           <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">

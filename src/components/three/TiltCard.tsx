@@ -49,6 +49,38 @@ export function TiltCard({ children, className = "", glowColor = "rgba(0,255,136
     });
   };
 
+  const handleTouchStart = () => {
+    setIsHovered(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!cardRef.current || e.touches.length === 0) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const normX = (x - centerX) / centerX;
+    const normY = (y - centerY) / centerY;
+
+    rotateX.set(normY * -12);
+    rotateY.set(normX * 12);
+
+    setGlowPos({
+      x: (x / rect.width) * 100,
+      y: (y / rect.height) * 100,
+    });
+  };
+
+  const handleTouchEnd = () => {
+    setIsHovered(false);
+    rotateX.set(0);
+    rotateY.set(0);
+    setGlowPos({ x: 50, y: 50 });
+  };
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -66,6 +98,9 @@ export function TiltCard({ children, className = "", glowColor = "rgba(0,255,136
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       style={{
         perspective: "1000px",
       }}

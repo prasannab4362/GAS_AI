@@ -8,7 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 
-import { HeroScene } from "@/components/three/HeroScene";
+import { RobotScene } from "@/components/three/RobotScene";
 
 const KEYWORDS = [
   "AI Automation",
@@ -33,7 +33,7 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[100vh] flex items-center justify-center overflow-hidden bg-brand-black">
       {/* 3D Background Scene */}
-      <HeroScene />
+      <RobotScene />
 
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-gray/50 via-brand-black to-brand-black z-[1] opacity-40" />
