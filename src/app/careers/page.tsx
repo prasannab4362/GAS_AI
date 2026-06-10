@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/seo";
 import { CareersContent } from "@/components/careers-content";
  
 export const metadata: Metadata = {
@@ -17,13 +18,13 @@ export const metadata: Metadata = {
     "Next.js developer remote",
   ],
   alternates: {
-    canonical: "https://gasautomation.ai/careers",
+    canonical: `${SITE_URL}/careers`,
   },
   openGraph: {
     title: "Careers & Remote AI Jobs | GAS AI",
     description:
       "Join the future of automation. Remote careers in AI, ML, robotics, IoT & full stack development at Green Automation Solution.",
-    url: "https://gasautomation.ai/careers",
+    url: `${SITE_URL}/careers`,
     images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS AI Careers" }],
   },
   twitter: {

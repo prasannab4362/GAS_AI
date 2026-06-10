@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight, Calendar, User } from "lucide-react";
 
@@ -19,13 +20,13 @@ export const metadata: Metadata = {
     "machine learning engineering blog",
   ],
   alternates: {
-    canonical: "https://gasautomation.ai/insights",
+    canonical: `${SITE_URL}/insights`,
   },
   openGraph: {
     title: "Insights & Tech Blog | GAS AI",
     description:
       "Expert perspectives on AI automation, robotics, IoT, and the technologies shaping Industry 4.0.",
-    url: "https://gasautomation.ai/insights",
+    url: `${SITE_URL}/insights`,
     images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS AI Insights & Blog" }],
   },
   twitter: {

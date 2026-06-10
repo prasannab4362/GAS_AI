@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact Us - Get a Free Consultation",
@@ -17,13 +18,13 @@ export const metadata: Metadata = {
     "Green Automation Solution contact",
   ],
   alternates: {
-    canonical: "https://gasautomation.ai/contact",
+    canonical: `${SITE_URL}/contact`,
   },
   openGraph: {
     title: "Contact Us - Get a Free Consultation | GAS AI",
     description:
       "Book a free strategy session with GAS AI engineers. AI automation, smart home, robotics & IoT project consultation.",
-    url: "https://gasautomation.ai/contact",
+    url: `${SITE_URL}/contact`,
     images: [{ url: "/logo.png", width: 1200, height: 630, alt: "Contact GAS AI" }],
   },
   twitter: {

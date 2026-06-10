@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/seo";
 import { ProductsContent } from "@/components/products-content";
  
 export const metadata: Metadata = {
@@ -15,13 +16,13 @@ export const metadata: Metadata = {
     "R&D technology",
   ],
   alternates: {
-    canonical: "https://gasautomation.ai/products",
+    canonical: `${SITE_URL}/products`,
   },
   openGraph: {
     title: "Core Products | AI, IoT & Robotics Hardware | GAS AI",
     description:
       "Explore enterprise-grade smart automation hardware, edge AI modules, robotics controllers, and virtual training sandboxes.",
-    url: "https://gasautomation.ai/products",
+    url: `${SITE_URL}/products`,
     images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS AI Products" }],
   },
   twitter: {

@@ -1,10 +1,10 @@
-export const SITE_URL = "https://gasautomation.ai";
+export const SITE_URL = "https://gasai.in";
 export const SITE_NAME = "GAS AI";
 export const COMPANY_NAME = "Green Automation Solution";
 export const LINKEDIN_URL = "https://www.linkedin.com/company/green-automation-solution";
 export const INSTAGRAM_URL = "https://www.instagram.com/green_automation_solution";
 export const GITHUB_URL = "https://github.com/prasannab4362/GAS_AI";
-export const CONTACT_EMAIL = "contact@gasautomation.ai";
+export const CONTACT_EMAIL = "contact@gasai.in";
 export const CONTACT_PHONE = "+91-9080785352";
 
 export const seoKeywords = [

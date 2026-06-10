@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { SparkInnov8Content } from "@/components/sparkinnov8-content";
+import { SITE_URL } from "@/lib/seo";
  
 export const metadata: Metadata = {
   title: "SparkInnov8 Lab | School Robotics & AI Lab Setup | GAS AI",
@@ -23,13 +24,13 @@ export const metadata: Metadata = {
     "embedded systems education",
   ],
   alternates: {
-    canonical: "https://gasautomation.ai/sparkinnov8",
+    canonical: `${SITE_URL}/sparkinnov8`,
   },
   openGraph: {
     title: "SparkInnov8 Lab | School Robotics & AI Lab Setup | GAS AI",
     description:
       "Complete Arduino, IoT, robotics & AI lab setup for schools. Curriculum, training & certification for the next generation of innovators.",
-    url: "https://gasautomation.ai/sparkinnov8",
+    url: `${SITE_URL}/sparkinnov8`,
     images: [{ url: "/logo.png", width: 1200, height: 630, alt: "SparkInnov8 - Robotics & AI Labs for Schools" }],
   },
   twitter: {
@@ -44,7 +45,7 @@ export default function SparkInnov8Page() {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "SparkInnov8 School Lab Setup",
-    "image": "https://gasautomation.ai/logo.png",
+    "image": `${SITE_URL}/logo.png`,
     "description": "Complete robotics, Arduino, IoT & AI lab setup program for schools. Includes curriculum, equipment, student training and certifications.",
     "brand": {
       "@type": "Brand",
@@ -52,7 +53,7 @@ export default function SparkInnov8Page() {
     },
     "offers": {
       "@type": "Offer",
-      "url": "https://gasautomation.ai/sparkinnov8",
+      "url": `${SITE_URL}/sparkinnov8`,
       "priceCurrency": "INR",
       "price": "0",
       "valueAddedService": {

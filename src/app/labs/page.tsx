@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { LabsContent } from "@/components/labs-content";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "GAS Virtual Lab | Remote AI & ML Internship Program | GAS AI",
@@ -24,13 +25,13 @@ export const metadata: Metadata = {
     "agentic AI training",
   ],
   alternates: {
-    canonical: "https://gasautomation.ai/labs",
+    canonical: `${SITE_URL}/labs`,
   },
   openGraph: {
     title: "GAS Virtual Lab | Remote AI & ML Internship Program | GAS AI",
     description:
       "100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics. Build real tech with GAS AI Virtual Labs.",
-    url: "https://gasautomation.ai/labs",
+    url: `${SITE_URL}/labs`,
     images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS Virtual Lab - Internship Program" }],
   },
   twitter: {
@@ -45,8 +46,8 @@ export default function LabsPage() {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
     "name": "GAS Virtual Lab",
-    "url": "https://gasautomation.ai/labs",
-    "logo": "https://gasautomation.ai/logo.png",
+    "url": `${SITE_URL}/labs`,
+    "logo": `${SITE_URL}/logo.png`,
     "description": "Join GAS Virtual Lab for 100% remote internships in AI, deep learning, computer vision, NLP, IoT & robotics with corporate certification.",
     "sameAs": [
       "https://github.com/prasannab4362/GAS_AI"
