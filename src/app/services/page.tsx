@@ -1,37 +1,39 @@
 import { ServicesSection } from "@/components/services-section";
 import { Metadata } from "next";
+import { COMPANY_NAME, SITE_NAME, SITE_URL, serviceNames } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Our Services | AI Automation, Smart Home & Robotics | GAS AI",
+  title: `Our Services | AI Automation, IoT & Robotics | ${SITE_NAME}`,
   description:
-    "Explore GAS AI services: AI automation, smart home systems, industrial IoT, robotics, computer vision, and business workflow automation across India & globally.",
+    "Explore Green Automation Solution (GAS AI) services: AI automation, IoT automation, smart home systems, industrial IoT, robotics, computer vision, and workflow automation.",
   keywords: [
     "our services",
     "GAS AI services",
+    "Green Automation Solution services",
     "AI automation services",
+    "IoT automation services",
     "smart home automation India",
     "industrial IoT automation",
     "robotics automation company",
     "business automation AI",
     "WhatsApp automation service",
     "computer vision solutions",
-    "IoT solutions India",
     "smart automation services",
   ],
   alternates: {
-    canonical: "https://gasautomation.ai/services",
+    canonical: `${SITE_URL}/services`,
   },
   openGraph: {
-    title: "Our Services | AI Automation, Smart Home & Robotics | GAS AI",
+    title: `Our Services | AI Automation, IoT & Robotics | ${SITE_NAME}`,
     description:
-      "From smart homes to industrial IoT — explore enterprise-grade automation services by Green Automation Solution.",
-    url: "https://gasautomation.ai/services",
-    images: [{ url: "/logo.png", width: 1200, height: 630, alt: "GAS AI Automation Services" }],
+      `From smart homes to industrial IoT, explore enterprise-grade automation services by ${COMPANY_NAME}.`,
+    url: `${SITE_URL}/services`,
+    images: [{ url: "/logo.png", width: 1200, height: 630, alt: `${SITE_NAME} Automation Services` }],
   },
   twitter: {
-    title: "Our Services | AI Automation, Smart Home & Robotics | GAS AI",
+    title: `Our Services | AI Automation, IoT & Robotics | ${SITE_NAME}`,
     description:
-      "From smart homes to industrial IoT — explore enterprise-grade automation services by Green Automation Solution.",
+      `From smart homes to industrial IoT, explore enterprise-grade automation services by ${COMPANY_NAME}.`,
   },
 };
 
@@ -39,60 +41,30 @@ export default function ServicesPage() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "serviceType": "AI Automation, Smart Home, Industrial IoT & Robotics Solutions",
+    "@id": `${SITE_URL}/services#services`,
+    "serviceType": "AI Automation, IoT Automation, Smart Home, Industrial IoT & Robotics Solutions",
     "provider": {
       "@type": "Organization",
-      "name": "GAS AI",
-      "url": "https://gasautomation.ai",
-      "logo": "https://gasautomation.ai/logo.png"
+      "@id": `${SITE_URL}/#organization`,
+      "name": SITE_NAME,
+      "url": SITE_URL,
+      "logo": `${SITE_URL}/logo.png`,
     },
-    "areaServed": "Worldwide",
+    "areaServed": ["India", "Worldwide"],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "GAS AI Our Services Catalog",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Smart Home Automation",
-            "description": "Intelligent lighting, climate control, voice automation, and smart locks for modern living."
-          }
+      "name": "GAS AI Services Catalog",
+      "itemListElement": serviceNames.map((name) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": name,
+          "provider": {
+            "@id": `${SITE_URL}/#organization`,
+          },
         },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Business Automation",
-            "description": "WhatsApp AI automation, CRM integration, n8n automated workflows, and smart customer support systems."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Industrial Automation",
-            "description": "Industrial IoT solutions, predictive maintenance, telemetry mesh networks, and sensor integration."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "AI & Intelligent Systems",
-            "description": "Language models (LLM), vision-language models (VLM), natural language processing, and custom AI agents."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Robotics & ROS",
-            "description": "Autonomous rovers, sub-millisecond control, robotic arm automation, and ROS edge programming."
-          }
-        }
-      ]
-    }
+      })),
+    },
   };
 
   return (
@@ -101,7 +73,7 @@ export default function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      
+
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center pt-10">
         <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 animate-fade-in">
           Our <span className="text-neon-green">Services</span>

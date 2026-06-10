@@ -4,6 +4,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { COMPANY_NAME, CONTACT_PHONE, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 const SERVICES_DATA: Record<string, { title: string; description: string; features: string[]; longDescription: string; keywords: string }> = {
   "home-automation": {
@@ -73,22 +74,27 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   return {
-    title: `${service.title} Services`,
-    description: service.description,
-    keywords: service.keywords.split(", "),
+    title: `${service.title} Services | ${SITE_NAME}`,
+    description: `${service.description} Built by ${COMPANY_NAME} for AI, IoT, and automation projects.`,
+    keywords: [
+      ...service.keywords.split(", "),
+      "Green Automation Solution",
+      "GAS AI",
+      `${service.title} GAS AI`,
+    ],
     alternates: {
-      canonical: `https://gasautomation.ai/services/${slug}`,
+      canonical: `${SITE_URL}/services/${slug}`,
     },
     openGraph: {
-      title: `${service.title} | GAS AI - Green Automation Solution`,
-      description: service.description,
-      url: `https://gasautomation.ai/services/${slug}`,
+      title: `${service.title} | ${SITE_NAME} - ${COMPANY_NAME}`,
+      description: `${service.description} Built by ${COMPANY_NAME}.`,
+      url: `${SITE_URL}/services/${slug}`,
       type: "article",
-      images: [{ url: "/logo.png", width: 1200, height: 630, alt: `${service.title} - GAS AI` }],
+      images: [{ url: "/logo.png", width: 1200, height: 630, alt: `${service.title} - ${SITE_NAME}` }],
     },
     twitter: {
-      title: `${service.title} | GAS AI`,
-      description: service.description,
+      title: `${service.title} | ${SITE_NAME}`,
+      description: `${service.description} Built by ${COMPANY_NAME}.`,
     },
   };
 }
@@ -101,8 +107,77 @@ export default async function ServicePage({ params }: { params: { slug: string }
     notFound();
   }
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${SITE_URL}/services/${slug}#service`,
+        name: `${service.title} Services`,
+        serviceType: service.title,
+        url: `${SITE_URL}/services/${slug}`,
+        description: service.description,
+        provider: {
+          "@id": `${SITE_URL}/#organization`,
+        },
+        areaServed: ["India", "Worldwide"],
+        telephone: CONTACT_PHONE,
+        termsOfService: `${SITE_URL}/contact`,
+        offers: {
+          "@type": "Offer",
+          availability: "https://schema.org/InStock",
+          url: `${SITE_URL}/contact`,
+          itemOffered: {
+            "@id": `${SITE_URL}/services/${slug}#service`,
+          },
+        },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: `${SITE_NAME} ${service.title} capabilities`,
+          itemListElement: service.features.map((feature) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: feature,
+              provider: {
+                "@id": `${SITE_URL}/#organization`,
+              },
+            },
+          })),
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Services",
+            item: `${SITE_URL}/services`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: service.title,
+            item: `${SITE_URL}/services/${slug}`,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <article className="py-24 bg-brand-black min-h-screen relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl pt-10 relative z-10">
         <Link href="/services" className="inline-flex items-center text-brand-cyan hover:text-neon-green transition-colors mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to Services

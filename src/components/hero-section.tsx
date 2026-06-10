@@ -80,7 +80,7 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="max-w-3xl mx-auto text-base sm:text-lg text-gray-400 mb-12 font-sans leading-relaxed"
         >
-          We build secure, enterprise-grade IoT networks, ROS-compatible robotic actuator systems, and custom smart automation workflows. Through our **GAS Virtual Labs** sandbox, we research, test, and deploy AI-driven solutions globally.
+          We build secure, enterprise-grade IoT networks, ROS-compatible robotic actuator systems, and custom smart automation workflows. Through our GAS Virtual Labs sandbox, we research, test, and deploy AI-driven solutions globally.
         </motion.p>
 
         {/* Focused action buttons */}

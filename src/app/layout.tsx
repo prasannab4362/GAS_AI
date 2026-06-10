@@ -5,7 +5,16 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Preloader } from "@/components/ui/Preloader";
 import { ParticleCanvas } from "@/components/particle-canvas";
-
+import {
+  COMPANY_NAME,
+  CONTACT_PHONE,
+  LINKEDIN_URL,
+  SITE_NAME,
+  SITE_URL,
+  organizationJsonLd,
+  seoKeywords,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 const orbitron = Orbitron({
   variable: "--font-orbitron",
@@ -27,64 +36,50 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gasautomation.ai"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    template: "%s | GAS AI - Smart Automation Solutions",
-    default: "GAS AI - Smart Automation, Robotics & IoT Solutions | Green Automation Solution",
+    template: `%s | ${SITE_NAME} - Smart Automation Solutions`,
+    default: `${SITE_NAME} - AI, IoT, Robotics & Automation Solutions | ${COMPANY_NAME}`,
   },
   description:
-    "GAS AI (Green Automation Solution) delivers enterprise-grade AI automation, smart home systems, industrial IoT, robotics, and computer vision solutions globally. Build smarter with GAS.",
-  keywords: [
-    "GAS AI",
-    "Green Automation Solution",
-    "AI automation services",
-    "smart home automation India",
-    "industrial automation IoT",
-    "robotics automation company",
-    "computer vision solutions",
-    "IoT solutions",
-    "business automation AI",
-    "smart automation systems",
-    "AI internship program",
-    "virtual AI labs",
-    "sparkinnov8 program",
-    "school robotics lab",
-    "GAS virtual lab",
-  ],
-  authors: [{ name: "Green Automation Solution (GAS AI)", url: "https://gasautomation.ai" }],
-  creator: "Green Automation Solution",
-  publisher: "Green Automation Solution",
+    "Green Automation Solution (GAS AI) delivers AI automation, IoT automation, smart home systems, industrial IoT, robotics, computer vision, and embedded product development globally.",
+  keywords: seoKeywords,
+  authors: [{ name: `${COMPANY_NAME} (${SITE_NAME})`, url: SITE_URL }],
+  creator: COMPANY_NAME,
+  publisher: COMPANY_NAME,
+  applicationName: SITE_NAME,
+  referrer: "origin-when-cross-origin",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   alternates: {
-    canonical: "https://gasautomation.ai",
+    canonical: SITE_URL,
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://gasautomation.ai",
-    siteName: "GAS AI - Green Automation Solution",
-    title: "GAS AI - Smart Automation, Robotics & IoT Solutions",
+    url: SITE_URL,
+    siteName: `${SITE_NAME} - ${COMPANY_NAME}`,
+    title: `${SITE_NAME} - AI, IoT, Robotics & Automation Solutions`,
     description:
-      "Enterprise-grade AI automation, smart home systems, industrial IoT, robotics, and computer vision. Build smarter with Green Automation Solution.",
+      "AI automation, IoT automation, smart home systems, industrial IoT, robotics, and computer vision by Green Automation Solution.",
     images: [
       {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "GAS AI - Green Automation Solution Logo",
+        alt: `${SITE_NAME} - ${COMPANY_NAME} Logo`,
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "GAS AI - Smart Automation, Robotics & IoT Solutions",
+    title: `${SITE_NAME} - AI, IoT, Robotics & Automation Solutions`,
     description:
-      "Enterprise-grade AI automation, smart home systems, industrial IoT, robotics, and computer vision. Build smarter with GAS.",
+      "AI automation, IoT automation, smart home systems, industrial IoT, robotics, and computer vision by Green Automation Solution.",
     images: ["/logo.png"],
     creator: "@gasautomation",
   },
@@ -106,69 +101,22 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
+    organizationJsonLd,
+    websiteJsonLd,
     {
-      "@type": "Organization",
-      "@id": "https://gasautomation.ai/#organization",
-      name: "Green Automation Solution",
-      alternateName: ["GAS AI", "GAS", "Green Automation Solution (GAS)"],
-      url: "https://gasautomation.ai",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://gasautomation.ai/logo.png",
-        width: 512,
-        height: 512,
+      "@type": "LocalBusiness",
+      "@id": `${SITE_URL}/#local-business`,
+      name: COMPANY_NAME,
+      alternateName: SITE_NAME,
+      url: SITE_URL,
+      telephone: CONTACT_PHONE,
+      image: `${SITE_URL}/logo.png`,
+      parentOrganization: {
+        "@id": `${SITE_URL}/#organization`,
       },
-      description:
-        "Enterprise-grade AI automation, smart home systems, industrial IoT, robotics, computer vision, and educational technology programs.",
-      foundingDate: "2023",
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          telephone: "+91-9080785352",
-          contactType: "sales",
-          areaServed: "Worldwide",
-          availableLanguage: ["English", "Tamil"],
-        },
-      ],
-      sameAs: [
-        "https://www.linkedin.com/company/green-automation-solution",
-        "https://www.instagram.com/gasautomation",
-      ],
-      knowsAbout: [
-        "Artificial Intelligence",
-        "Machine Learning",
-        "Smart Home Automation",
-        "Industrial Automation",
-        "Internet of Things",
-        "Robotics",
-        "Computer Vision",
-        "Natural Language Processing",
-        "Embedded Systems",
-        "Product Development",
-      ],
-      serviceArea: {
-        "@type": "Place",
-        name: "Worldwide",
-      },
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://gasautomation.ai/#website",
-      url: "https://gasautomation.ai",
-      name: "GAS AI - Green Automation Solution",
-      description:
-        "Official website of Green Automation Solution — AI automation, smart home, industrial IoT, robotics, and educational technology programs.",
-      publisher: {
-        "@id": "https://gasautomation.ai/#organization",
-      },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: "https://gasautomation.ai/services?q={search_term_string}",
-        },
-        "query-input": "required name=search_term_string",
-      },
+      areaServed: ["India", "Worldwide"],
+      sameAs: [LINKEDIN_URL],
+      priceRange: "$$",
     },
   ],
 };
@@ -193,9 +141,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Navbar />
-        <main className="flex-1 pt-20 relative z-10">
-          {children}
-        </main>
+        <main className="flex-1 pt-20 relative z-10">{children}</main>
         <Footer />
       </body>
     </html>
